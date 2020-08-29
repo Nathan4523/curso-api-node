@@ -1,7 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
+app.use(cors());
 app.use(express.json())
 
 const projects = [];
@@ -33,7 +35,7 @@ function validateProjectId(request, response, next){
 //ou pode ser usado dessa maneira
 app.use('/projects/:id', validateProjectId)
 
-app.get('/projects', validateProjectId, logRequests, (request, response) => {
+app.get('/projects', logRequests, (request, response) => {
     const { title } = request.query;
 
     const results = title
